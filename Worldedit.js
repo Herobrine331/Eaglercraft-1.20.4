@@ -1,73 +1,81 @@
-// Add this at the very beginning of your WorldEdit mod
-if (typeof ModAPI === 'undefined') {
-    console.error('ModAPI not loaded! Retrying in 1 second...');
-    setTimeout(() => {
-        // Re-execute your mod code here
-    }, 1000);
-    return;
-}
-PluginAPI.meta.title("WorldEdit");
-PluginAPI.meta.credits("By radmanplays");
-PluginAPI.meta.icon("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAcUlEQVR42mNgoAcw1xT4D8Jka25LVQNjkg2Bac4OlP9fGqFImgHImmHY00z0f4af3H+SDADZDNIc6SwJpjXkuP+THHggm5ENIckrMGeDbIZ5hWgDQJo709XhziYpOpFtJjnuKdaM7OwhYjMIkG0zpQAAtFpjWIvu2dwAAAAASUVORK5CYII=");
-PluginAPI.meta.description("Use //wand, //set and //walls in singleplayer worlds.");
-PluginAPI.addEventListener("lib:libcustomitems:loaded", () => {
-    console.log("Registered worldedit custom items.");
-    LibCustomItems.registerItem({
-        tag: "worldedit:wand",
-        base: "wooden_axe",
-        name: "Wand",
-        qty: 1,
-        recipe: [
-            "   ",
-            " # ",
-            "   "
-        ],
-        recipeLegend: {
-            "#": {
-                "type": "item",
-                "id": "wooden_axe"
-            }
-        },
-        onRightClickGround: `/*/user, world, itemstack, blockpos/*/
-        const prefix = "§7[§4worldedit§7] ";
-        var username = PluginAPI.util.str(user.getName());
+// WorldEdit Mod - Fixed Version
+(function() {
+    'use strict';
+    
+    // Check if PluginAPI is available
+    if (typeof PluginAPI === 'undefined') {
+        console.error('PluginAPI not loaded! Retrying in 1 second...');
+        setTimeout(arguments.callee, 1000);
+        return;
+    }
+    
+    // Initialize mod metadata
+    PluginAPI.meta.title("WorldEdit");
+    PluginAPI.meta.credits("By radmanplays");
+    PluginAPI.meta.icon("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAcUlEQVR42mNgoAcw1xT4D8Jka25LVQNjkg2Bac4OlP9fGqFImgHImmHY00z0f4af3H+SDADZDNIc6SwJpjXkuP+THHggm5ENIckrMGeDbIZ5hWgDQJo709XhziYpOpFtJjnuKdaM7OwhYjMIkG0zpQAAtFpjWIvu2dwAAAAASUVORK5CYII=");
+    PluginAPI.meta.description("Use //wand, //set and //walls in singleplayer worlds.");
 
-        globalThis.pos2x = {}
-        globalThis.pos2y = {}
-        globalThis.pos2z = {}
+    // Wait for LibCustomItems to load
+    PluginAPI.addEventListener("lib:libcustomitems:loaded", () => {
+        console.log("Registered worldedit custom items.");
+        LibCustomItems.registerItem({
+            tag: "worldedit:wand",
+            base: "wooden_axe",
+            name: "Wand",
+            qty: 1,
+            recipe: [
+                "   ",
+                " # ",
+                "   "
+            ],
+            recipeLegend: {
+                "#": {
+                    "type": "item",
+                    "id": "wooden_axe"
+                }
+            },
+            onRightClickGround: `/*user, world, itemstack, blockpos*/
+            const prefix = "§7[§4worldedit§7] ";
+            var username = PluginAPI.util.str(user.getName());
 
-        globalThis.pos2x[username] = blockpos.x
-        globalThis.pos2y[username] = blockpos.y
-        globalThis.pos2z[username] = blockpos.z
-        console.log("rightclick: " + blockpos.x + ", " + blockpos.y + ", " + blockpos.z)
-        // Send chat message to player
-        user.addChatMessage(PluginAPI.reflect.getClassById("net.minecraft.util.ChatComponentText").constructors[0](PluginAPI.util.str(prefix + "Pos #2 set to: " + blockpos.x + ", " + blockpos.y + ", " + blockpos.z)))
-        return true;
-        `,
-        onLeftClickGround: `/*/user, world, itemstack, blockpos/*/
-        const prefix = "§7[§4worldedit§7] ";
-        var username = PluginAPI.util.str(user.getName());
+            globalThis.pos2x = {}
+            globalThis.pos2y = {}
+            globalThis.pos2z = {}
 
-        globalThis.posx = {}
-        globalThis.posy = {}
-        globalThis.posz = {}
+            globalThis.pos2x[username] = blockpos.x
+            globalThis.pos2y[username] = blockpos.y
+            globalThis.pos2z[username] = blockpos.z
+            console.log("rightclick: " + blockpos.x + ", " + blockpos.y + ", " + blockpos.z)
+            // Send chat message to player
+            user.addChatMessage(PluginAPI.reflect.getClassById("net.minecraft.util.ChatComponentText").constructors[0](PluginAPI.util.str(prefix + "Pos #2 set to: " + blockpos.x + ", " + blockpos.y + ", " + blockpos.z)))
+            return true;
+            `,
+            onLeftClickGround: `/*user, world, itemstack, blockpos*/
+            const prefix = "§7[§4worldedit§7] ";
+            var username = PluginAPI.util.str(user.getName());
 
-        globalThis.posx[username] = blockpos.x
-        globalThis.posy[username] = blockpos.y
-        globalThis.posz[username] = blockpos.z
-        
-        // Send chat message to player
-        user.addChatMessage(PluginAPI.reflect.getClassById("net.minecraft.util.ChatComponentText").constructors[0](PluginAPI.util.str(prefix + "Pos #1 set to: " + blockpos.x + ", " + blockpos.y + ", " + blockpos.z)))
-        return true;
-        `
+            globalThis.posx = {}
+            globalThis.posy = {}
+            globalThis.posz = {}
+
+            globalThis.posx[username] = blockpos.x
+            globalThis.posy[username] = blockpos.y
+            globalThis.posz[username] = blockpos.z
+            
+            // Send chat message to player
+            user.addChatMessage(PluginAPI.reflect.getClassById("net.minecraft.util.ChatComponentText").constructors[0](PluginAPI.util.str(prefix + "Pos #1 set to: " + blockpos.x + ", " + blockpos.y + ", " + blockpos.z)))
+            return true;
+            `
+        });
     });
-});
 
-(() => {
+    // Server-side command handling
     PluginAPI.dedicatedServer.appendCode(function () {
         PluginAPI.addEventListener("processcommand", (event) => {
             if (!PluginAPI.reflect.getClassById("net.minecraft.entity.player.EntityPlayerMP").instanceOf(event.sender.getRef())) {return}
             const prefix = "§7[§4worldedit§7] ";
+            
+            // //wand command
             if (event.command.toLowerCase().startsWith("//wand")) {
                 // Create a new ItemStack for the custom item
                 const ItemStackClass = PluginAPI.reflect.getClassById("net.minecraft.item.ItemStack");
@@ -105,7 +113,10 @@ PluginAPI.addEventListener("lib:libcustomitems:loaded", () => {
                 
                 event.preventDefault = true;
             }
+            
             var blockPosConstructor = PluginAPI.reflect.getClassById("net.minecraft.util.BlockPos").constructors.find((x) => { return x.length === 3 });
+            
+            // //set command
             if (event.command.toLowerCase().startsWith("//set")) {
                 const args = event.command.substring("//set ".length);
                 var username = PluginAPI.util.str(event.sender.getName());
@@ -145,8 +156,10 @@ PluginAPI.addEventListener("lib:libcustomitems:loaded", () => {
                     event.sender.addChatMessage(PluginAPI.reflect.getClassById("net.minecraft.util.ChatComponentText").constructors[0](PluginAPI.util.str(prefix + `Arguments not found!`)));
                 }
                 event.preventDefault = true;
-        }
-        if (event.command.toLowerCase().startsWith("//walls")) {
+            }
+            
+            // //walls command
+            if (event.command.toLowerCase().startsWith("//walls")) {
                 const args = event.command.substring("//walls ".length);
                 var username = PluginAPI.util.str(event.sender.getName());
 
@@ -188,58 +201,58 @@ PluginAPI.addEventListener("lib:libcustomitems:loaded", () => {
                 }
                 event.preventDefault = true;
             }
-            // "this command was made by EymenWSMC. comments included" - radmanplays
+            
+            // //replacenear command (made by EymenWSMC)
             if (event.command.toLowerCase().startsWith("//replacenear")) {
-            const args = event.command.split(" ").slice(1); 
-            if (args.length < 3) {
-                event.sender.addChatMessage(PluginAPI.reflect.getClassById("net.minecraft.util.ChatComponentText").constructors[0](PluginAPI.util.str(prefix + "Usage: //replacenear <radius> <targetBlock> <replacementBlock>")));
-                event.preventDefault = true;
-                return;
-            }
+                const args = event.command.split(" ").slice(1); 
+                if (args.length < 3) {
+                    event.sender.addChatMessage(PluginAPI.reflect.getClassById("net.minecraft.util.ChatComponentText").constructors[0](PluginAPI.util.str(prefix + "Usage: //replacenear <radius> <targetBlock> <replacementBlock>")));
+                    event.preventDefault = true;
+                    return;
+                }
         
-            const radius = parseInt(args[0]);
-            const targetBlockName = args[1];
-            const replacementBlockName = args[2];
+                const radius = parseInt(args[0]);
+                const targetBlockName = args[1];
+                const replacementBlockName = args[2];
         
-           const targetBlock = PluginAPI.blocks[targetBlockName];
-            const replacementBlock = PluginAPI.blocks[replacementBlockName];
-            if (!targetBlock || !replacementBlock) {
-                event.sender.addChatMessage(PluginAPI.reflect.getClassById("net.minecraft.util.ChatComponentText").constructors[0](PluginAPI.util.str(prefix + "Invalid block names!")));
-                event.preventDefault = true;
-                return;
-            }
-        
+                const targetBlock = PluginAPI.blocks[targetBlockName];
+                const replacementBlock = PluginAPI.blocks[replacementBlockName];
+                if (!targetBlock || !replacementBlock) {
+                    event.sender.addChatMessage(PluginAPI.reflect.getClassById("net.minecraft.util.ChatComponentText").constructors[0](PluginAPI.util.str(prefix + "Invalid block names!")));
+                    event.preventDefault = true;
+                    return;
+                }
 
-            //Replacing logic
-            const targetBlockState = targetBlock.getDefaultState().getRef();
-            const replacementBlockState = replacementBlock.getDefaultState().getRef();
+                // Replacing logic
+                const targetBlockState = targetBlock.getDefaultState().getRef();
+                const replacementBlockState = replacementBlock.getDefaultState().getRef();
         
-            const playerPos = event.sender.getPosition();
-            const xStart = Math.floor(playerPos.x - radius);
-            const xEnd = Math.floor(playerPos.x + radius);
-            const yStart = Math.floor(playerPos.y - radius);
-            const yEnd = Math.floor(playerPos.y + radius);
-            const zStart = Math.floor(playerPos.z - radius);
-            const zEnd = Math.floor(playerPos.z + radius);
+                const playerPos = event.sender.getPosition();
+                const xStart = Math.floor(playerPos.x - radius);
+                const xEnd = Math.floor(playerPos.x + radius);
+                const yStart = Math.floor(playerPos.y - radius);
+                const yEnd = Math.floor(playerPos.y + radius);
+                const zStart = Math.floor(playerPos.z - radius);
+                const zEnd = Math.floor(playerPos.z + radius);
         
-            //Replace ity with radoius
-            for (let x = xStart; x <= xEnd; x++) {
-                for (let y = yStart; y <= yEnd; y++) {
-                    for (let z = zStart; z <= zEnd; z++) {
-                        const blockPos = blockPosConstructor(x, y, z);
-                        const currentBlock = event.sender.getServerForPlayer().getBlockState(blockPos);
+                // Replace within radius
+                for (let x = xStart; x <= xEnd; x++) {
+                    for (let y = yStart; y <= yEnd; y++) {
+                        for (let z = zStart; z <= zEnd; z++) {
+                            const blockPos = blockPosConstructor(x, y, z);
+                            const currentBlock = event.sender.getServerForPlayer().getBlockState(blockPos);
         
-                        if (currentBlock.equals(targetBlockState)) {
-                            event.sender.getServerForPlayer().setBlockState(blockPos, replacementBlockState, 3);
+                            if (currentBlock.equals(targetBlockState)) {
+                                event.sender.getServerForPlayer().setBlockState(blockPos, replacementBlockState, 3);
+                            }
                         }
                     }
                 }
-            }
         
-            //Send messages shit
-            event.sender.addChatMessage(PluginAPI.reflect.getClassById("net.minecraft.util.ChatComponentText").constructors[0](PluginAPI.util.str(prefix + `Replaced ${targetBlockName} with ${replacementBlockName} within radius ${radius}`)));
-            event.preventDefault = true;
-        }
+                // Send confirmation message
+                event.sender.addChatMessage(PluginAPI.reflect.getClassById("net.minecraft.util.ChatComponentText").constructors[0](PluginAPI.util.str(prefix + `Replaced ${targetBlockName} with ${replacementBlockName} within radius ${radius}`)));
+                event.preventDefault = true;
+            }
         });
     });
 })();
