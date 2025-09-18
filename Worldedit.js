@@ -1,11 +1,9 @@
 // WorldEdit Mod - Working Version
-(function() {
-    'use strict';
-    
+(function initWorldEdit() {
     // Check if ModAPI is available
     if (typeof ModAPI === 'undefined') {
         console.error('ModAPI not loaded! Retrying in 1 second...');
-        setTimeout(arguments.callee, 1000);
+        setTimeout(initWorldEdit, 1000);
         return;
     }
     
