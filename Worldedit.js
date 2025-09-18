@@ -1,3 +1,11 @@
+// Add this at the very beginning of your WorldEdit mod
+if (typeof ModAPI === 'undefined') {
+    console.error('ModAPI not loaded! Retrying in 1 second...');
+    setTimeout(() => {
+        // Re-execute your mod code here
+    }, 1000);
+    return;
+}
 PluginAPI.meta.title("WorldEdit");
 PluginAPI.meta.credits("By radmanplays");
 PluginAPI.meta.icon("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAcUlEQVR42mNgoAcw1xT4D8Jka25LVQNjkg2Bac4OlP9fGqFImgHImmHY00z0f4af3H+SDADZDNIc6SwJpjXkuP+THHggm5ENIckrMGeDbIZ5hWgDQJo709XhziYpOpFtJjnuKdaM7OwhYjMIkG0zpQAAtFpjWIvu2dwAAAAASUVORK5CYII=");
