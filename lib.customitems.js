@@ -1,12 +1,11 @@
 // LibCustomItems - Custom Item Library
 // This should be loaded BEFORE your WorldEdit mod
 
-(function() {
+(function waitForModAPI() {
     'use strict';
-    
-    // Wait for ModAPI to be available
+
     if (typeof ModAPI === 'undefined') {
-        setTimeout(arguments.callee, 100);
+        setTimeout(waitForModAPI, 100); // ✅ Now this works even in strict mode
         return;
     }
     
